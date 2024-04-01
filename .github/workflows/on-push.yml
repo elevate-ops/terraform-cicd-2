@@ -9,7 +9,7 @@ jobs:
     name: terraform plan
     runs-on: ubuntu-latest
     container:
-      image: hashicorp/terraform:1.7.4
+      image: hashicorp/terraform:1.7.5
     env:
       TF_TOKEN_app_terraform_io: ${{ secrets.TF_CLOUD_TOKEN }}
     steps:
@@ -33,7 +33,7 @@ jobs:
     environment: terraform-cicd-2-env
     needs: [ 'terraform-plan' ]
     container:
-      image: hashicorp/terraform:1.7.4
+      image: hashicorp/terraform:1.7.5
     env:
       TF_TOKEN_app_terraform_io: ${{ secrets.TF_CLOUD_TOKEN }}
 
