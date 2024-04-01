@@ -62,7 +62,7 @@ jobs:
       image: hashicorp/terraform:1.7.4
     env:
       TF_TOKEN_app_terraform_io: ${{ secrets.TF_CLOUD_TOKEN }}
-      TF_provider_token: ${{ secrets.TF_CLOUD_TOKEN }}
+      TF_VAR_provider_token: ${{ secrets.TF_CLOUD_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
