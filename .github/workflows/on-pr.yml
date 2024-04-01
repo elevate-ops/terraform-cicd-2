@@ -1,0 +1,72 @@
+name: Run checks and plan
+
+on:
+  pull_request:
+    branches: ['main']
+
+jobs:
+  terraform-fmt:
+    name: terraform fmt
+    runs-on: ubuntu-latest
+    container:
+      image: hashicorp/terraform:1.7.3
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: terraform fmt
+        run: terraform fmt -recursive -check -diff
+
+  terraform-validate:
+    name: terraform validate
+    runs-on: ubuntu-latest
+    container:
+      image: hashicorp/terraform:1.7.4
+    env:
+      TF_TOKEN_app_terraform_io: ${{ secrets.TF_CLOUD_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: terraform init
+        run: terraform init
+
+      - name: terraform validate
+        run: terraform validate
+
+  tflint:
+    name: tflint checks
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/terraform-linters/tflint:v0.50.3
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: tflint
+        run: tflint --recursive
+
+  trivy:
+    name: trivy security checks
+    runs-on: ubuntu-latest
+    container:
+      image: aquasec/trivy:0.49.1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: trivy
+        run: trivy config ./
+
+  terraform-plan:
+    name: terraform plan
+    runs-on: ubuntu-latest
+    needs: [ 'terraform-validate', 'terraform-fmt', 'tflint', 'trivy' ]
+    container:
+      image: hashicorp/terraform:1.7.4
+    env:
+      TF_TOKEN_app_terraform_io: ${{ secrets.TF_CLOUD_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: terraform init
+        run: terraform init
+
+      - name: terraform plan
+        run: terraform plan -lock=false
