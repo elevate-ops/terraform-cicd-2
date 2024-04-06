@@ -7,11 +7,13 @@ on:
 jobs:
   renovate:
     runs-on: ubuntu-latest
+    container:
+      image: renovate/renovate:37.279-slim
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
+
       - name: Self-hosted Renovate
-        uses: renovatebot/github-action@v40.1.7
-        with:
-          configurationFile: renovate.json
-          token: ${{ secrets.PAT_FOR_RENOVATE }}
+        env:
+          PAT_FOR_RENOVATE: ${{ secrets.PAT_FOR_RENOVATE }}
+        run: renovate --token ${PAT_FOR_RENOVATE} --platform=github elevate-ops/terraform-cicd-2

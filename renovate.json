@@ -2,11 +2,5 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
-  ],
-  "packageRules": [
-    {
-      "matchRepositories": ["elevate-ops/terraform-cicd-2"],
-      "enabled": true
-    }
   ]
 }
