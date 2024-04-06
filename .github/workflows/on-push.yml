@@ -9,7 +9,7 @@ jobs:
     name: terraform plan
     runs-on: ubuntu-latest
     container:
-      image: hashicorp/terraform:1.7.4
+      image: hashicorp/terraform:1.7.5
     env:
       TF_TOKEN_app_terraform_io: ${{ secrets.TF_CLOUD_TOKEN }}
       TF_VAR_provider_token: ${{ secrets.TF_CLOUD_TOKEN }}
