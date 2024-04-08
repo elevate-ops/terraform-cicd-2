@@ -67,7 +67,7 @@ jobs:
       - name: Update infracost base
         run: infracost breakdown --path . --format json --out-file infracost-base.json
 
-      - uses: Automatic commit
+      - name: Automatic commit
         run: |
           git commit -am "Update infracost base [skip ci]"
           git push
