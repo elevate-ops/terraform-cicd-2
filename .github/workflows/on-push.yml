@@ -58,7 +58,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: infracost/infracost:ci-0.10.35
-      options: --user root
     env:
       INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
     steps:
@@ -69,5 +68,6 @@ jobs:
 
       - name: Automatic commit
         run: |
+          git config --global --add safe.directory '*'
           git commit -am "Update infracost base [skip ci]"
           git push
