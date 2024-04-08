@@ -67,8 +67,7 @@ jobs:
       - name: Update infracost base
         run: infracost breakdown --path . --format json --out-file infracost-base.json
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: 'Update infracost base [skip ci]'
-          skip_fetch: true
-          skip_checkout: true
+      - uses: Automatic commit
+        run: |
+          git commit -am "Update infracost base [skip ci]"
+          git push
