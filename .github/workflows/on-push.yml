@@ -50,3 +50,22 @@ jobs:
 
       - name: terraform apply
         run: terraform apply -auto-approve tfplan
+
+  update-infracost-base:
+    name: Update infracost base
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    container:
+      image: infracost/infracost:ci-0.10.35
+    env:
+      INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update infracost base
+        run: infracost breakdown --path . --format json --out-file infracost-base.json
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'Update infracost base [skip ci]'
