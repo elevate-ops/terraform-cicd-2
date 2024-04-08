@@ -64,7 +64,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Update infracost base
-        run: infracost breakdown --path /code --format json --out-file infracost-base.json
+        run: infracost breakdown --path . --format json --out-file infracost-base.json
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
