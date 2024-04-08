@@ -50,26 +50,3 @@ jobs:
 
       - name: terraform apply
         run: terraform apply -auto-approve tfplan
-
-  update-infracost-base:
-    name: Update infracost base
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    container:
-      image: infracost/infracost:ci-0.10.35
-    env:
-      INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Update infracost base
-        run: infracost breakdown --path . --format json --out-file infracost-base.json
-
-      - name: Automatic commit
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --globa user.name "Github Actions Bot"
-          git config --global --add safe.directory '*'
-          git commit -am "Update infracost base [skip ci]"
-          git push
