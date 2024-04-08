@@ -71,3 +71,16 @@ jobs:
 
       - name: terraform plan
         run: terraform plan -lock=false
+
+  infracost:
+    name: Infracost diff
+    runs-on: ubuntu-latest
+    container:
+      image: infracost/infracost:ci-0.10.35
+    env:
+      INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: infracost diff
+        run: infracost diff --path . --compare-to infracost-base.json
