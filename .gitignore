@@ -35,3 +35,5 @@ terraform.rc
 
 .idea/
 terraform-cicd-2.iml
+
+.infracost/
