@@ -58,6 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: infracost/infracost:ci-0.10.35
+      options: --user root
     env:
       INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
     steps:
