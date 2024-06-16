@@ -47,7 +47,7 @@ jobs:
     name: trivy security checks
     runs-on: ubuntu-latest
     container:
-      image: aquasec/trivy:0.50.1
+      image: aquasec/trivy:0.52.2
     steps:
       - uses: actions/checkout@v4
 
