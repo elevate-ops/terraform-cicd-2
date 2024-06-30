@@ -36,7 +36,7 @@ jobs:
     name: tflint checks
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/terraform-linters/tflint:v0.50.3
+      image: ghcr.io/terraform-linters/tflint:v0.51.2
     steps:
       - uses: actions/checkout@v4
 
